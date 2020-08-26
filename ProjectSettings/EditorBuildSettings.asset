@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/VoiceChatTest.unity
+    guid: 81209eae1f3765f4ab1db2271f77e816
   m_configObjects: {}
