@@ -4,15 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using NAudio;
-using NAudio.Wave;
-using System.IO;
 
 public class VoiceChat : NetworkBehaviour
 {
     public AudioSource audioSource;
-    WaveInEvent waveIn = new WaveInEvent();
-    WaveOutEvent waveOut = new WaveOutEvent();
 
     public AnimationCurve VoiceRollOff;
 
@@ -41,45 +36,22 @@ public class VoiceChat : NetworkBehaviour
 		{
             GetComponent<AudioListener>().enabled = false;
 		}
-		else
-		{
-            waveIn.WaveFormat = new WaveFormat(24000, 16, 1);
-            waveIn.BufferMilliseconds = 250;
-
-            waveIn.DataAvailable += WaveIn_DataAvailable;
-
-            waveIn.StartRecording();
-            //print($"{waveIn.WaveFormat.BitsPerSample} {waveIn.WaveFormat.Channels} {waveIn.WaveFormat.SampleRate}");
-        }
         if(audioSource == null) audioSource = GetComponent<AudioSource>();
-    }
-
-    bool speaking = false;
-
-	private void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
-	{
-		//bwp.AddSamples(e.Buffer, 0, e.BytesRecorded);
-		if (speaking)
-		{
-            ParseVoiceData(e.Buffer);
-		}
     }
 
 	void Update()
     {
 		if (isLocalPlayer)
 		{
-            speaking = Input.GetKey(KeyCode.V);
-
-            /*if (Input.GetKey(KeyCode.V))
+            if (Input.GetKey(KeyCode.V))
             {
-                //if (VoiceChatController.singleton.UseProximityVoiceChat) SendProximityVoice();
-                //else SendChanneledVoice();
+                if (VoiceChatController.singleton.UseProximityVoiceChat) SendProximityVoice();
+                else SendChanneledVoice();
             }
             else
             {
                 lastSample = MicrophoneCore.singleton.MicPos;
-            }*/
+            }
 
             if (Input.GetKeyDown(KeyCode.UpArrow))
 			{
@@ -93,12 +65,6 @@ public class VoiceChat : NetworkBehaviour
             }
         }
     }
-
-	private void OnApplicationQuit()
-	{
-        waveIn.Dispose();
-        waveOut.Dispose();
-	}
 
 	void SendChanneledVoice()
 	{
@@ -177,19 +143,11 @@ public class VoiceChat : NetworkBehaviour
 
     void ParseVoiceData(byte[] ba)
     {
-        IWaveProvider provider = new RawSourceWaveStream(
-                                 new MemoryStream(ba), new WaveFormat(24000, 16, 1));
-
-
-        waveOut.Stop();
-        waveOut.Init(provider);
-        waveOut.Play();
-
-        //float[] f = ToFloatArray(ba);
-        //AudioClip ac = AudioClip.Create("voice", f.Length, 1, micFrequency, false);
-        //ac.SetData(f, 0);
-        //audioSource.clip = ac;
-        //if (!audioSource.isPlaying) audioSource.Play();
+        float[] f = ToFloatArray(ba);
+        AudioClip ac = AudioClip.Create("voice", f.Length, 1, micFrequency, false);
+        ac.SetData(f, 0);
+        audioSource.clip = ac;
+        if (!audioSource.isPlaying) audioSource.Play();
     }
 
 	public byte[] ToByteArray(float[] floatArray)
