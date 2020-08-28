@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 2952438296469823816}
   - component: {fileID: 5162546271411819866}
   - component: {fileID: 9095492833173378959}
+  - component: {fileID: -7531645084172018130}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -440,3 +441,20 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   Speed: 0.1
+--- !u!114 &-7531645084172018130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162546271411819865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4c3ac7a9db26e49b10c9a4926ad7f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  MicLevel: 0
+  micAudioClip: {fileID: 0}
+  MicPos: 0
