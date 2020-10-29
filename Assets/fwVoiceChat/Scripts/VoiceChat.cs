@@ -1,4 +1,6 @@
-﻿using Mirror;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Mirror;
 using UnityEngine;
 
 namespace fwVoiceChat.Scripts
@@ -103,14 +105,14 @@ namespace fwVoiceChat.Scripts
             {
                 if (vckp.Key)
                 {
-                    VoiceChatController.singleton.VoiceChatChannels.Remove((vckp.Key));
-                }
-                else
-                {
                     if (vckp.Key != this && (transform.position - vckp.Key.transform.position).sqrMagnitude < VoiceChatController.singleton.SpeakingDistance*VoiceChatController.singleton.SpeakingDistance)
                     {
                         TargetRpcReciveVoice(vckp.Key.connectionToClient, ba);
-                    }   
+                    }
+                }
+                else
+                {
+                    VoiceChatController.singleton.VoiceChatChannels.Remove((vckp.Key));
                 }
             }
         }
@@ -133,20 +135,21 @@ namespace fwVoiceChat.Scripts
         [Command]
         public void CmdSendVoice(byte[] ba)
         {
-            byte channel = VoiceChatController.singleton.VoiceChatChannels[this];
+            Dictionary<VoiceChat, byte> VoiceChatChannels = VoiceChatController.singleton.VoiceChatChannels;
+            byte channel = VoiceChatChannels[this];
             
-            foreach (var pl in VoiceChatController.singleton.VoiceChatChannels)
+            foreach (var pl in VoiceChatChannels)
             {
                 if (pl.Key)
-                {
-                    VoiceChatController.singleton.VoiceChatChannels.Remove((pl.Key));
-                }
-                else
                 {
                     if ((pl.Value == channel && pl.Key != this) || (pl.Key == this && HearYourself))
                     {
                         TargetRpcReciveVoice(pl.Key.connectionToClient, ba);
-                    }   
+                    }
+                }
+                else
+                {
+                    VoiceChatController.singleton.VoiceChatChannels.Remove((pl.Key));
                 }
             }
         }
