@@ -216,8 +216,8 @@ MonoBehaviour:
   startOnHeadless: 1
   showDebugMessages: 0
   serverTickRate: 30
-  offlineScene: Assets/Scenes/SampleScene.unity
-  onlineScene: Assets/Scenes/VoiceChatTest.unity
+  offlineScene: Assets/fwVoiceChat/Scenes/SampleScene.unity
+  onlineScene: Assets/fwVoiceChat/Scenes/VoiceChatTest.unity
   transport: {fileID: 700703991}
   networkAddress: localhost
   maxConnections: 4
