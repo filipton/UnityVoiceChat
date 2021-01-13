@@ -195,9 +195,9 @@ MonoBehaviour:
       m_Calls: []
   port: 7777
   NoDelay: 1
-  serverMaxMessageSize: 32768
+  serverMaxMessageSize: 524288
   serverMaxReceivesPerTick: 10000
-  clientMaxMessageSize: 32768
+  clientMaxMessageSize: 524288
   clientMaxReceivesPerTick: 1000
 --- !u!114 &700703992
 MonoBehaviour:

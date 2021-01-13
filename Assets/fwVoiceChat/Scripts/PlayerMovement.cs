@@ -17,7 +17,8 @@ namespace fwVoiceChat.Scripts
 				x *= Speed;
 				y *= Speed;
 
-				Vector3 pos = transform.position + new Vector3(x, y, 0);
+				transform.position += new Vector3(x, y, 0);
+				Vector3 pos = transform.position;
 				CmdSyncMovement(pos.x, pos.y, pos.z);
 			}
 		}

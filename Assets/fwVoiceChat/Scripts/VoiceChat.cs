@@ -9,8 +9,8 @@ namespace fwVoiceChat.Scripts
     {
         public AudioSource audioSource;
         public AnimationCurve VoiceRollOff;
-        public bool HearYourself = false;
-
+        public bool AlwaysTalk = false;
+        
         [Header("Voice Chat Settings")]
         [Tooltip("Its frequency of input (mic) in khz")]
         public int micFrequency = 44100;
@@ -42,7 +42,7 @@ namespace fwVoiceChat.Scripts
         {
             if (isLocalPlayer)
             {
-                if (Input.GetKey(KeyCode.V))
+                if (Input.GetKey(KeyCode.V) || AlwaysTalk)
                 {
                     if (VoiceChatController.singleton.UseProximityVoiceChat) SendProximityVoice();
                     else SendChanneledVoice();
@@ -142,14 +142,14 @@ namespace fwVoiceChat.Scripts
             {
                 if (pl.Key)
                 {
-                    if ((pl.Value == channel && pl.Key != this) || (pl.Key == this && HearYourself))
+                    if (pl.Value == channel && pl.Key != this)
                     {
                         TargetRpcReciveVoice(pl.Key.connectionToClient, ba);
                     }
                 }
                 else
                 {
-                    VoiceChatController.singleton.VoiceChatChannels.Remove((pl.Key));
+                    VoiceChatController.singleton.VoiceChatChannels.Remove(pl.Key);
                 }
             }
         }

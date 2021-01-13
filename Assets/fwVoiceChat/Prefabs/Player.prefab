@@ -253,7 +253,7 @@ AudioSource:
   m_GameObject: {fileID: 5162546271411819865}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 6c46032b574f2a046bdcfe0ef98e0a7b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -423,9 +423,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  AlwaysTalk: 0
   micFrequency: 24000
   micRecordLenght: 120
-  micSamplePacketSize: 4000
+  micSamplePacketSize: 12000
 --- !u!114 &9095492833173378959
 MonoBehaviour:
   m_ObjectHideFlags: 0
